@@ -24,7 +24,7 @@ class RenderController extends Controller
         }
 
         return $this->render(
-            ':default:index.html.twig',
+            ':default/pages:blank.html.twig',
             array(
             )
         );
