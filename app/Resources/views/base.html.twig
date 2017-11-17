@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>PrimuS::Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- LOAD CSS FILES -->
+    <link type="text/css" rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:400,100,300,500"/>
+    <link type="text/css" rel="stylesheet" href="{{ asset('assets/node_modules/bootstrap/dist/css/bootstrap.min.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset('assets/node_modules/font-awesome/css/font-awesome.min.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset('assets/node_modules/animate.css/animate.min.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset('assets/node_modules/perfect-scrollbar/css/perfect-scrollbar.css') }}"/>
+    <link type="text/css" rel="stylesheet" href="{{ asset('assets/node_modules/noty/lib/noty.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset('assets/node_modules/pikaday/css/pikaday.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset('assets/node_modules/select2/dist/css/select2.min.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset('assets/node_modules/css-toggle-switch/dist/toggle-switch.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset('assets/node_modules/tooltipster/dist/css/tooltipster.bundle.min.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset('assets/node_modules/tooltipster/dist/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-punk.min.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset('assets/node_modules/fine-uploader/fine-uploader/fine-uploader.min.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset('assets/app/css/modal.min.css') }}"/>
+    <link type="text/css" rel="stylesheet" href="{{ asset('assets/app/css/style.min.css') }}"/>
+    <link type="text/css" rel="stylesheet" href="{{ asset('assets/app/css/reset.min.css') }}"/>
+    <link type="text/css" rel="stylesheet" href="{{ asset('assets/app/css/overrides.min.css') }}"/>
+    {% block stylesheets %}{% endblock %}
+</head>
+<body>
+
+<aside id="sidebar" class="nano">
+    <div class="nano-content" id="pScrollerMenu">
+        <div class="logo-container"><span class="logo fa fa-envelope"></span>PrimuS852</div>
+        <div class="menu-segment text-center">
+            <div class="row">
+                <div class="col-12">
+                    <div class="userWelcome">User: {{ app.user ? app.user.username : 'NONE' }}</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <a href="{{ path('fos_user_security_logout') }}" style="color:white;" class="btn btn-success btn-sm rounded-0">Abmelden <i class="fa fa-lock"></i> </a>
+                </div>
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col-12">
+                    <span id="startClock"></span> (CW {{ "now"|date("W") }})
+                </div>
+            </div>
+
+        </div>
+        <br/>
+        <div class="separator"></div>
+        <menu class="menu-segment">
+            <ul>
+                <li id="contentMenu1">
+                    <a href="#" class="mLink clickable"
+                       data-url=""
+                       data-hash="menu-1"
+                       data-trigger="1"
+                    >
+                        <i class="fa fa-list"></i> Link 1
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="mLink toggleTree">
+                        <i class="fa fa-chevron-right"></i> Link 2
+                    </a>
+                    <ul class="treeMenu">
+                        <li id="contentMenu2" class="treeItem">
+                            <a href="#" class="mLink">
+                                <i class="fa fa-info-circle"></i> Link 2.1
+                            </a>
+                        </li>
+                        <li id="contentMenu3" class="treeItem">
+                            <a href="#" class="mLink">
+                                <i class="fa fa-info-circle"></i> Link 2.1
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </menu>
+            <div class="separator"></div>
+            <menu class="menu-segment">
+                <ul>
+                    <li>
+                        <a href="#" class="mLink toggleTree">
+                            <i class="fa fa-chevron-right"></i> Separate Menu
+                        </a>
+                        <ul class="treeMenu">
+                            <li id="contentMenu4" class="treeItem">
+                                <a href="#" class="mLink">
+                                    <i class="fa fa-eur"></i> Link 3
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </menu>
+        <div class="separator"></div>
+        <menu class="menu-segment">
+            <ul>
+                <li class="title">
+                    Short Menu
+                </li>
+            </ul>
+        </menu>
+        <div class="bottom-padding"></div>
+    </div>
+</aside>
+<!-- Slide in Window -->
+<!-- Modal Window -->
+<div class="md-modal md-effect-5" id="modal">
+    <div class="md-content">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h3 id="modalTitle"></h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12" id="modalText"></div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <a href="#" class="btn btn-success btn-sm md-close rounded-0" id="mOkClass">Ok</a>
+            </div>
+            <div class="col-6">
+                <a href="#" class="btn btn-danger btn-sm md-close rounded-0" id="mAbortClass">Abort</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="md-overlay"></div>
+{% block body %}{% endblock %}
+<!-- LOAD JS FILES -->
+
+<script type="text/javascript" src="{{ asset('assets/node_modules/jquery/dist/jquery.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/node_modules/popper.js/dist/umd/popper.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/node_modules/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/node_modules/noty/lib/noty.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/node_modules/moment/min/moment-with-locales.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/node_modules/pikaday/pikaday.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/node_modules/jquery-timepicker/jquery.timepicker.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/node_modules/tooltipster/dist/js/tooltipster.bundle.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/node_modules/select2/dist/js/select2.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/node_modules/fine-uploader/fine-uploader/fine-uploader.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/app/js/hashchange.min.js') }}"></script>
+{% block javascripts %}{% endblock %}
+<script src="{{ asset('assets/app/js/app.js') }}"></script>
+
+</body>
+</html>
