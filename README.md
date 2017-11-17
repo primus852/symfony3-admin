@@ -10,6 +10,7 @@ This is a quick and dirty Admin Template based on Bootstrap4 (beta2) and Symfony
 - `composer update`
 
 ## Additional ##
+- Create User table: `php bin/console doctrine:generate:entities AppBundle && php bin/console doctrine:schema:update --force --complete --dump-sql && php bin/console doctrine:schema:validate`
 - Create a user: `php bin/console fos:user:create myusername --super-admin`
 
 ## License ##
