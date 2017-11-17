@@ -46,6 +46,7 @@ function initMenu(selector){
 }
 
 function initOverlays() {
+
     cols.showOverlay = function () {
         $('body').addClass('show-main-overlay');
     };
@@ -53,16 +54,14 @@ function initOverlays() {
         $('body').removeClass('show-main-overlay');
     };
 
-
     cols.showMessage = function () {
         $('body').addClass('show-message');
         messageIsOpen = true;
     };
     cols.hideMessage = function () {
-        $('body').removeClass('show-message');
+        $('body').removeClass('show-message').removeClass('show-main-overlay');
         messageIsOpen = false;
     };
-
 
     cols.showSidebar = function () {
         $('body').addClass('show-sidebar');
@@ -71,29 +70,9 @@ function initOverlays() {
         $('body').removeClass('show-sidebar');
     };
 
-
-    // Show sidebar when trigger is clicked
-
     $('.trigger-toggle-sidebar').on('click', function () {
         cols.showSidebar();
         cols.showOverlay();
-    });
-
-
-    $('.trigger-message-close').on('click', function () {
-
-        var $mb = $(this).closest('.messageFly');
-
-        if ($('.messageFly').length <= 1) {
-            cols.hideMessage();
-            $mb.remove();
-            history.pushState("", document.title, window.location.pathname);
-        } else {
-            $mb.animate({left: '9999px'}, function () {
-                $mb.remove();
-            });
-        }
-
     });
 
     // When you click the overlay, close everything
@@ -103,6 +82,22 @@ function initOverlays() {
         cols.hideSidebar();
     });
 }
+
+$(document).on('click', '.trigger-message-close', function () {
+
+    var $mb = $(this).closest('.messageFly');
+
+    if ($('.messageFly').length <= 1) {
+        cols.hideMessage();
+        $mb.remove();
+        history.pushState("", document.title, window.location.pathname);
+    } else {
+        $mb.animate({left: '9999px'}, function () {
+            $mb.remove();
+        });
+    }
+
+});
 
 function detectHash() {
 
@@ -190,12 +185,12 @@ function loadDetails(trigger, id) {
         initModal();
         initTooltips('.tt');
         initPerfectScrollbar('.subScroll');
-        
+
         /* If it is a menu Link, init active menu bar */
         if(trigger.hasClass('mLink')){
             initMenu(trigger.parent());
         }
-        
+
     });
 }
 
