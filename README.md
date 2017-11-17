@@ -1,6 +1,8 @@
 Symfony3 Admin Template
 =======
 
+This is a quick and dirty Admin Template based on Bootstrap4 (beta2) and Symfony. It provides basic User Management (FOSUSerBundle) nad is quickly set up.
+
 ## Quick Install ##
 - `git clone https://github.com/primus852/symfony3-admin`
 - `cd symfony3-admin`
